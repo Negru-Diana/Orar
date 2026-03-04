@@ -1,0 +1,162 @@
+:root {
+    --primary-purple: #652e7a;
+    --light-purple: #f5d7fa;
+    --accent-purple: #8e44ad;
+    --bg-color: #a87ec7;
+    --text-main: #2c3e50;
+    --text-muted: #7f8c8d;
+    --white: #debdf6;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--bg-color);
+    margin: 0;
+    color: var(--text-main);
+}
+
+/* Header Navigation */
+.header-nav {
+    display: flex;
+    padding: 15px;
+    gap: 10px;
+    background: var(--white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: #f0f0f0;
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: var(--primary-purple);
+    color: #ffffff; /* Text alb cand este selectat */
+}
+
+/* Dropdown Filters */
+.filter-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--white);
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.select-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.select-wrapper label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: 0.9rem;
+}
+
+/* Content Container */
+.content-wrapper {
+    padding: 15px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* DESKTOP TABLE */
+.desktop-table {
+    display: none;
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.desktop-table th {
+    background: #f8f9fa;
+    padding: 15px;
+    text-align: left;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.desktop-table td {
+    padding: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* MOBILE CARDS */
+.course-card {
+    background: var(--white);
+    border-radius: 16px;
+    margin-bottom: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    border-left: 5px solid var(--light-purple);
+}
+
+.card-left { display: flex; flex-direction: column; min-width: 75px; border-right: 1px solid #eee; padding-right: 10px; }
+.day { font-weight: 800; font-size: 0.75rem; color: var(--primary-purple); }
+.time { font-size: 0.85rem; font-weight: 600; }
+.frecv-badge { background: #fff3e0; color: #e67e22; font-size: 0.65rem; padding: 2px 4px; border-radius: 4px; margin-top: 5px; text-align: center; font-weight: bold; }
+
+.card-main { flex: 1; }
+.title { font-weight: 700; margin-bottom: 5px; }
+.details { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.room { font-size: 0.85rem; color: var(--text-muted); }
+.prof { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+
+/* SHARED TAGS */
+.type-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; font-weight: bold; }
+.tag-curs { background: #e3f2fd; color: #1976d2; }
+.tag-seminar { background: #fff3e0; color: #f57c00; }
+.tag-laborator { background: #f3e5f5; color: #7b1fa2; }
+.tag-work, .tag-meeting { background: #e8f5e9; color: #2e7d32; }
+
+.special-highlight { background: #fdf0ff !important; border-left-color: var(--primary-purple) !important; }
+.bold-purple { color: var(--primary-purple); font-weight: 800; }
+.bold-text { font-weight: 600; }
+.frecv-text { color: #e67e22; font-weight: bold; }
+
+/* RESPONSIVE LOGIC */
+@media (min-width: 768px) {
+    .mobile-only { display: none; }
+    .desktop-table { display: table; }
+}
+
+
+.hide-work {
+    display: none !important;
+}
+
+
+@media (min-width: 768px) {
+    .desktop-table {
+        table-layout: auto;
+    }
+}

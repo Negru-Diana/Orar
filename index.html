@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programul Meu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="header-nav">
+        <button class="tab-btn active" onclick="switchTab('uni')">Facultate</button>
+        <button class="tab-btn" onclick="switchTab('work')">Work</button>
+    </div>
+
+    <div id="uni-filters" class="filter-controls">
+        <div class="select-wrapper">
+            <label>Săptămâna</label>
+            <select id="week-select" onchange="applyFilters()">
+                <option value="all">Toate</option>
+                <option value="sapt. 1">Săptămâna 1</option>
+                <option value="sapt. 2">Săptămâna 2</option>
+            </select>
+        </div>
+        <div class="select-wrapper">
+            <label>Ziua</label>
+            <select id="day-select" onchange="applyFilters()">
+                <option value="all">Toate zilele</option>
+                <option value="LUNI">Luni</option>
+                <option value="MARTI">Marți</option>
+                <option value="MIERCURI">Miercuri</option>
+                <option value="JOI">Joi</option>
+                <option value="VINERI">Vineri</option>
+            </select>
+        </div>
+    </div>
+
+    <main class="content-wrapper">
+        <div id="schedule-container"></div>
+    </main>
+
+    <script>
+        let currentCategory = 'uni';
+
+        const data = [
+            // UNIVERSITY DATA
+            { cat: "uni", zi: "LUNI", ore: "12-14", frecv: "", sala: "C310", tip: "Curs", disc: "Gestiunea proiectelor soft", prof: "Conf. SUCIU Dan Mircea", highlight: false },
+            { cat: "uni", zi: "LUNI", ore: "14-16", frecv: "sapt. 2", sala: "L404", tip: "Seminar", disc: "Gestiunea proiectelor soft", prof: "Conf. SUCIU Dan Mircea", highlight: true },
+            { cat: "uni", zi: "LUNI", ore: "16-18", frecv: "", sala: "C310", tip: "Laborator", disc: "Calcul numeric", prof: "Drd. TOFAN Ioan-Adrian", highlight: true },
+            { cat: "uni", zi: "LUNI", ore: "18-20", frecv: "sapt. 1", sala: "C335", tip: "Laborator", disc: "Verificarea si validarea sistemelor soft", prof: "C.d.asociat MIHIS Alin", highlight: true },
+            { cat: "uni", zi: "MARTI", ore: "08-10", frecv: "", sala: "2/I", tip: "Curs", disc: "Verificarea si validarea sistemelor soft", prof: "Lect. CHISALITA-CRETU Camelia", highlight: false },
+            { cat: "uni", zi: "MARTI", ore: "12-14", frecv: "sapt. 2", sala: "7/I", tip: "Seminar", disc: "Verificarea si validarea sistemelor soft", prof: "Lect. CHISALITA-CRETU Camelia", highlight: true },
+            { cat: "uni", zi: "MARTI", ore: "16-18", frecv: "sapt. 1", sala: "L321", tip: "Laborator", disc: "Dezvoltarea de jocuri", prof: "Lect. LAZAR Ioan", highlight: false },
+            { cat: "uni", zi: "MIERCURI", ore: "08-10", frecv: "sapt. 1", sala: "L336", tip: "Laborator", disc: "Elaborarea lucrarii de licenta", prof: "Conf. SERBAN Camelia", highlight: true },
+            { cat: "uni", zi: "MIERCURI", ore: "16-18", frecv: "", sala: "2/I", tip: "Curs", disc: "Calcul numeric", prof: "Conf. TRAMBITAS Radu", highlight: false },
+            { cat: "uni", zi: "JOI", ore: "16-18", frecv: "", sala: "C310", tip: "Curs", disc: "Dezvoltarea de jocuri", prof: "Lect. LAZAR Ioan", highlight: false },
+            { cat: "uni", zi: "VINERI", ore: "10-11", frecv: "", sala: "I3", tip: "Curs", disc: "Managementul clasei de elevi (DPPD)", prof: "Lect. MAIER Mariana", highlight: false },
+            { cat: "uni", zi: "VINERI", ore: "11-13", frecv: "sapt. 1", sala: "I3", tip: "Seminar", disc: "Managementul clasei de elevi (DPPD)", prof: "Lect. MAIER Mariana", highlight: false },
+            { cat: "uni", zi: "VINERI", ore: "14-16", frecv: "", sala: "2/I", tip: "Curs", disc: "Istoria informaticii", prof: "Conf. STERCA Adrian", highlight: true },
+
+            // WORK DATA
+            { cat: "work", zi: "LUNI", ore: "09-13", frecv: "", sala: "Online", tip: "Work", disc: "Program de lucru", prof: "Note: Daily 11:30-12:00", highlight: true },
+            { cat: "work", zi: "MARTI", ore: "09-11", frecv: "", sala: "Online", tip: "Work", disc: "Program de lucru (S1)", prof: "", highlight: true },
+            { cat: "work", zi: "MARTI", ore: "11:30-12", frecv: "Daily", sala: "Online", tip: "Meeting", disc: "Daily", prof: "", highlight: false },
+            { cat: "work", zi: "MARTI", ore: "16-18", frecv: "", sala: "Online", tip: "Work", disc: "Program de lucru (S2)", prof: "", highlight: true },
+            { cat: "work", zi: "MIERCURI", ore: "11:30-12", frecv: "Daily", sala: "Online", tip: "Meeting", disc: "Daily", prof: "", highlight: false },
+            { cat: "work", zi: "MIERCURI", ore: "14-18", frecv: "", sala: "Online", tip: "Work", disc: "Program de lucru", prof: "Note: Daily 11:30-12:00", highlight: true },
+            { cat: "work", zi: "JOI", ore: "09-13", frecv: "", sala: "Office", tip: "Work", disc: "Program de lucru", prof: "Note: Daily 11:30-12:00", highlight: true },
+            { cat: "work", zi: "VINERI", ore: "09-13", frecv: "", sala: "Online", tip: "Work", disc: "Program de lucru", prof: "Note: Daily 11:30-12:00", highlight: true }
+        ];
+
+        function applyFilters() {
+            renderSchedule(currentCategory);
+        }
+
+        function renderSchedule(category) {
+            const container = document.getElementById('schedule-container');
+            const weekFilter = document.getElementById('week-select').value;
+            const dayFilter = document.getElementById('day-select').value;
+            
+            container.innerHTML = "";
+            let filtered = data.filter(item => item.cat === category);
+
+            if (category === 'uni') {
+                if (weekFilter !== 'all') {
+                    filtered = filtered.filter(item => item.frecv === "" || item.frecv === weekFilter);
+                }
+                if (dayFilter !== 'all') {
+                    filtered = filtered.filter(item => item.zi === dayFilter);
+                }
+            }
+
+            const isWork = category === 'work';
+            const colSala = isWork ? "Locație" : "Sala";
+            const colProf = isWork ? "Notes/Info" : "Cadrul didactic";
+
+            // Generare tabel Desktop
+            let tableHtml = `<table class="desktop-table">
+                <thead>
+                    <tr>
+                        <th>Ziua</th>
+                        <th>Orele</th>
+                        <th class="${isWork ? 'hide-work' : ''}">Frecv.</th>
+                        <th>${colSala}</th>
+                        <th class="${isWork ? 'hide-work' : ''}">Tip</th>
+                        <th class="${isWork ? 'hide-work' : ''}">Disciplina</th>
+                        <th>${colProf}</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+            filtered.forEach(item => {
+                tableHtml += `
+                    <tr class="${item.highlight ? 'special-highlight' : ''}">
+                        <td class="bold-purple">${item.zi}</td>
+                        <td>${item.ore}</td>
+                        <td class="frecv-text ${isWork ? 'hide-work' : ''}">${item.frecv}</td>
+                        <td>${item.sala}</td>
+                        <td class="${isWork ? 'hide-work' : ''}"><span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span></td>
+                        <td class="bold-text ${isWork ? 'hide-work' : ''}">${item.disc}</td>
+                        <td class="prof-text">${item.prof}</td>
+                    </tr>`;
+
+                // Carduri Mobile
+                const card = document.createElement('div');
+                card.className = `course-card mobile-only ${item.highlight ? 'special-highlight' : ''}`;
+                card.innerHTML = `
+                    <div class="card-left">
+                        <span class="day">${item.zi}</span>
+                        <span class="time">${item.ore}</span>
+                        ${item.frecv ? `<span class="frecv-badge">${item.frecv}</span>` : ''}
+                    </div>
+                    <div class="card-main">
+                        <div class="title">${item.disc}</div>
+                        <div class="details">
+                            <span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span>
+                            <span class="room">📍 ${item.sala}</span>
+                        </div>
+                        <div class="prof">${item.prof}</div>
+                    </div>`;
+                container.appendChild(card);
+            });
+
+            tableHtml += `</tbody></table>`;
+            container.insertAdjacentHTML('afterbegin', tableHtml);
+        }
+
+        // function renderSchedule(category) {
+        //     const container = document.getElementById('schedule-container');
+        //     const weekFilter = document.getElementById('week-select').value;
+        //     const dayFilter = document.getElementById('day-select').value;
+            
+        //     container.innerHTML = "";
+        //     let filtered = data.filter(item => item.cat === category);
+
+        //     if (category === 'uni') {
+        //         if (weekFilter !== 'all') {
+        //             filtered = filtered.filter(item => item.frecv === "" || item.frecv === weekFilter);
+        //         }
+        //         if (dayFilter !== 'all') {
+        //             filtered = filtered.filter(item => item.zi === dayFilter);
+        //         }
+        //     }
+
+        //     // Desktop Table
+        //     let tableHtml = `<table class="desktop-table"><thead><tr><th>Ziua</th><th>Orele</th><th>Frecv.</th><th>Sala</th><th>Tip</th><th>Disciplina</th><th>Cadrul didactic</th></tr></thead><tbody>`;
+
+        //     filtered.forEach(item => {
+        //         tableHtml += `
+        //             <tr class="${item.highlight ? 'special-highlight' : ''}">
+        //                 <td class="bold-purple">${item.zi}</td>
+        //                 <td>${item.ore}</td>
+        //                 <td class="frecv-text">${item.frecv}</td>
+        //                 <td>${item.sala}</td>
+        //                 <td><span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span></td>
+        //                 <td class="bold-text">${item.disc}</td>
+        //                 <td class="prof-text">${item.prof}</td>
+        //             </tr>`;
+
+        //         // Mobile Cards
+        //         const card = document.createElement('div');
+        //         card.className = `course-card mobile-only ${item.highlight ? 'special-highlight' : ''}`;
+        //         card.innerHTML = `
+        //             <div class="card-left">
+        //                 <span class="day">${item.zi}</span>
+        //                 <span class="time">${item.ore}</span>
+        //                 ${item.frecv ? `<span class="frecv-badge">${item.frecv}</span>` : ''}
+        //             </div>
+        //             <div class="card-main">
+        //                 <div class="title">${item.disc}</div>
+        //                 <div class="details">
+        //                     <span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span>
+        //                     <span class="room">📍 ${item.sala}</span>
+        //                 </div>
+        //                 <div class="prof">${item.prof}</div>
+        //             </div>`;
+        //         container.appendChild(card);
+        //     });
+
+        //     tableHtml += `</tbody></table>`;
+        //     container.insertAdjacentHTML('afterbegin', tableHtml);
+        // }
+
+        function switchTab(category) {
+            currentCategory = category;
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('uni-filters').style.display = (category === 'uni') ? 'flex' : 'none';
+            renderSchedule(category);
+        }
+
+        renderSchedule('uni');
+    </script>
+</body>
+</html>
