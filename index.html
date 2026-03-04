@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programul Meu</title>
+    <title>Anul 3 informatică</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -144,62 +144,6 @@
             tableHtml += `</tbody></table>`;
             container.insertAdjacentHTML('afterbegin', tableHtml);
         }
-
-        // function renderSchedule(category) {
-        //     const container = document.getElementById('schedule-container');
-        //     const weekFilter = document.getElementById('week-select').value;
-        //     const dayFilter = document.getElementById('day-select').value;
-            
-        //     container.innerHTML = "";
-        //     let filtered = data.filter(item => item.cat === category);
-
-        //     if (category === 'uni') {
-        //         if (weekFilter !== 'all') {
-        //             filtered = filtered.filter(item => item.frecv === "" || item.frecv === weekFilter);
-        //         }
-        //         if (dayFilter !== 'all') {
-        //             filtered = filtered.filter(item => item.zi === dayFilter);
-        //         }
-        //     }
-
-        //     // Desktop Table
-        //     let tableHtml = `<table class="desktop-table"><thead><tr><th>Ziua</th><th>Orele</th><th>Frecv.</th><th>Sala</th><th>Tip</th><th>Disciplina</th><th>Cadrul didactic</th></tr></thead><tbody>`;
-
-        //     filtered.forEach(item => {
-        //         tableHtml += `
-        //             <tr class="${item.highlight ? 'special-highlight' : ''}">
-        //                 <td class="bold-purple">${item.zi}</td>
-        //                 <td>${item.ore}</td>
-        //                 <td class="frecv-text">${item.frecv}</td>
-        //                 <td>${item.sala}</td>
-        //                 <td><span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span></td>
-        //                 <td class="bold-text">${item.disc}</td>
-        //                 <td class="prof-text">${item.prof}</td>
-        //             </tr>`;
-
-        //         // Mobile Cards
-        //         const card = document.createElement('div');
-        //         card.className = `course-card mobile-only ${item.highlight ? 'special-highlight' : ''}`;
-        //         card.innerHTML = `
-        //             <div class="card-left">
-        //                 <span class="day">${item.zi}</span>
-        //                 <span class="time">${item.ore}</span>
-        //                 ${item.frecv ? `<span class="frecv-badge">${item.frecv}</span>` : ''}
-        //             </div>
-        //             <div class="card-main">
-        //                 <div class="title">${item.disc}</div>
-        //                 <div class="details">
-        //                     <span class="type-tag tag-${item.tip.toLowerCase()}">${item.tip}</span>
-        //                     <span class="room">📍 ${item.sala}</span>
-        //                 </div>
-        //                 <div class="prof">${item.prof}</div>
-        //             </div>`;
-        //         container.appendChild(card);
-        //     });
-
-        //     tableHtml += `</tbody></table>`;
-        //     container.insertAdjacentHTML('afterbegin', tableHtml);
-        // }
 
         function switchTab(category) {
             currentCategory = category;

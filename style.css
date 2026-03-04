@@ -123,7 +123,7 @@ select {
 .card-left { display: flex; flex-direction: column; min-width: 75px; border-right: 1px solid #eee; padding-right: 10px; }
 .day { font-weight: 800; font-size: 0.75rem; color: var(--primary-purple); }
 .time { font-size: 0.85rem; font-weight: 600; }
-.frecv-badge { background: #fff3e0; color: #e67e22; font-size: 0.65rem; padding: 2px 4px; border-radius: 4px; margin-top: 5px; text-align: center; font-weight: bold; }
+.frecv-badge { background: #fad8ee; color: #8b3f93; font-size: 0.65rem; padding: 2px 4px; border-radius: 4px; margin-top: 5px; text-align: center; font-weight: bold; }
 
 .card-main { flex: 1; }
 .title { font-weight: 700; margin-bottom: 5px; }
@@ -133,10 +133,11 @@ select {
 
 /* SHARED TAGS */
 .type-tag { font-size: 0.7rem; padding: 2px 8px; border-radius: 6px; text-transform: uppercase; font-weight: bold; }
-.tag-curs { background: #e3f2fd; color: #1976d2; }
-.tag-seminar { background: #fff3e0; color: #f57c00; }
-.tag-laborator { background: #f3e5f5; color: #7b1fa2; }
-.tag-work, .tag-meeting { background: #e8f5e9; color: #2e7d32; }
+.tag-curs { background: #e4d2f9; color: #6c19d2; }
+.tag-seminar { background: #ffe0e0; color: #ec5151; }
+.tag-laborator { background: #f8cef8; color: #7b1fa2; }
+.tag-work { background: #f3c6f0; color: #62245e; }
+.tag-meeting { background: #cc8bca; color: #430d3f; }
 
 .special-highlight { background: #fdf0ff !important; border-left-color: var(--primary-purple) !important; }
 .bold-purple { color: var(--primary-purple); font-weight: 800; }
