@@ -10,14 +10,14 @@
 
     <div class="header-nav">
         <button class="tab-btn active" onclick="switchTab('uni')">Facultate</button>
-        <button class="tab-btn" onclick="switchTab('work')">Work</button>
+        <!-- <button class="tab-btn" onclick="switchTab('work')">Work</button> -->
     </div>
 
     <div id="uni-filters" class="filter-controls">
         <div class="select-wrapper">
             <label>Săptămâna</label>
             <select id="week-select" onchange="applyFilters()">
-                <option value="all">Toate</option>
+                <option value="all">All</option>
                 <option value="sapt. 1">Săptămâna 1</option>
                 <option value="sapt. 2">Săptămâna 2</option>
             </select>
@@ -25,7 +25,7 @@
         <div class="select-wrapper">
             <label>Ziua</label>
             <select id="day-select" onchange="applyFilters()">
-                <option value="all">Toate zilele</option>
+                <option value="all">All days</option>
                 <option value="LUNI">Luni</option>
                 <option value="MARTI">Marți</option>
                 <option value="MIERCURI">Miercuri</option>
@@ -46,10 +46,10 @@
             // UNIVERSITY DATA
             { cat: "uni", zi: "LUNI", ore: "12-14", frecv: "", sala: "C310", tip: "Curs", disc: "Gestiunea proiectelor soft", prof: "Conf. SUCIU Dan Mircea", highlight: false },
             { cat: "uni", zi: "LUNI", ore: "14-16", frecv: "sapt. 2", sala: "L404", tip: "Seminar", disc: "Gestiunea proiectelor soft", prof: "Conf. SUCIU Dan Mircea", highlight: true },
-            { cat: "uni", zi: "LUNI", ore: "16-18", frecv: "", sala: "C310", tip: "Laborator", disc: "Calcul numeric", prof: "Drd. TOFAN Ioan-Adrian", highlight: true },
-            { cat: "uni", zi: "LUNI", ore: "18-20", frecv: "sapt. 1", sala: "C335", tip: "Laborator", disc: "Verificarea si validarea sistemelor soft", prof: "C.d.asociat MIHIS Alin", highlight: true },
+            { cat: "uni", zi: "LUNI", ore: "18-20", frecv: "sapt. 1", sala: "DC404", tip: "Laborator", disc: "Verificarea si validarea sistemelor soft", prof: "C.d.asociat MIHIS Alin", highlight: true },
             { cat: "uni", zi: "MARTI", ore: "08-10", frecv: "", sala: "2/I", tip: "Curs", disc: "Verificarea si validarea sistemelor soft", prof: "Lect. CHISALITA-CRETU Camelia", highlight: false },
             { cat: "uni", zi: "MARTI", ore: "12-14", frecv: "sapt. 2", sala: "7/I", tip: "Seminar", disc: "Verificarea si validarea sistemelor soft", prof: "Lect. CHISALITA-CRETU Camelia", highlight: true },
+            { cat: "uni", zi: "MARTI", ore: "14-16", frecv: "", sala: "L002", tip: "Laborator", disc: "Calcul numeric", prof: "Drd. TOFAN Ioan-Adrian", highlight: true },
             { cat: "uni", zi: "MARTI", ore: "16-18", frecv: "sapt. 1", sala: "L321", tip: "Laborator", disc: "Dezvoltarea de jocuri", prof: "Lect. LAZAR Ioan", highlight: false },
             { cat: "uni", zi: "MIERCURI", ore: "08-10", frecv: "sapt. 1", sala: "L336", tip: "Laborator", disc: "Elaborarea lucrarii de licenta", prof: "Conf. SERBAN Camelia", highlight: true },
             { cat: "uni", zi: "MIERCURI", ore: "16-18", frecv: "", sala: "2/I", tip: "Curs", disc: "Calcul numeric", prof: "Conf. TRAMBITAS Radu", highlight: false },
